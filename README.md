@@ -1,24 +1,27 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## For run the app
+```
+docker-compose up
+```
 
-Things you may want to cover:
 
-* Ruby version
+## For build the app
+```
+docker run -it -v $(pwd):/usr/src/app -w /usr/src/app ruby:2.2 bundle install && docker-compose build
 
-* System dependencies
+```
 
-* Configuration
+## For debug with rubymine
+GUIDE: http://bzzt.io/posts/running-the-rails-debugger-in-a-docker-container-using-rubymine
+- IMPORTANT you need to configured inside rubymine the debugger after that you can run the commands.
 
-* Database creation
+To conect to the container the command is:
+```
+docker-compose run -p 1234:1234 -p 3000:3000 web bash
+```
 
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Inside to run the rdebug run:
+```
+rdebug-ide --host 0.0.0.0 --port 1234 --dispatcher-port 26162 -- bin/rails s -b 0.0.0.0 -p 3000 -e development
+ ```

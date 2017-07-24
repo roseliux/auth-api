@@ -30,13 +30,13 @@ gem 'devise_token_auth'
 gem 'omniauth-facebook'
 gem 'omniauth-google-oauth2'
 
-# for debug in rubymine
-gem 'ruby-debug-ide'
-gem 'debase'
 
 group :development, :test do
+  # for debug in rubymine
+  gem 'ruby-debug-ide'
+  gem 'debase'
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  # gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
 end
 
 group :development do
