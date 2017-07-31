@@ -1,13 +1,13 @@
 require 'test_helper'
 
 class HomeControllerTest < ActionDispatch::IntegrationTest
-  test "should get index" do
+  test "should get 401 when get index" do
     get home_index_url
-    assert_response :success
+    assert_response 401
   end
 
-  test "should get not_auth" do
-    get home_not_auth_url
+  test "should get guest" do
+    get root_url, as: :json
     assert_response :success
   end
 

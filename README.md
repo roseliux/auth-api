@@ -25,3 +25,8 @@ Inside to run the rdebug run:
 ```
 rdebug-ide --host 0.0.0.0 --port 1234 --dispatcher-port 26162 -- bin/rails s -b 0.0.0.0 -p 3000 -e development
  ```
+
+## For test
+```
+docker-compose run web rails test
+```
