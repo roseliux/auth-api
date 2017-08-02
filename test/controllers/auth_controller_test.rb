@@ -1,14 +1,23 @@
 require 'test_helper'
 
 class AuthControllerTest < ActionDispatch::IntegrationTest
-  # test "should get index" do
-  #   get home_index_url
-  #   assert_response :success
-  # end
+  setup do
+    @valid_header = {
+      'CONTENT_TYPE': 'application/json',
+      'email': 'rox@mail.com',
+      'password': 'secret123'
+    }
+  end
 
-  # test "should get not_auth" do
-  #   get home_not_auth_url
-  #   assert_response :success
-  # end
+  test "should get index" do
+    # post new_user_session_url, headers: @valid_header, as: :json
+    post new_user_session_url,
+         headers: {
+          email: 'rox@mail.com',
+          password: 'secret123'
+         }, xhr: true
+    assert_equal 200, response.status
+    assert_equal 'rox@mail.com', response.header['uid']
+  end
 
 end

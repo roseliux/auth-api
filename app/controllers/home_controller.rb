@@ -1,10 +1,10 @@
 class HomeController < ApplicationController
-  skip_before_action :authenticate_user!, only: :guest
+  before_action :authenticate_user!, except: :guest
 
   def index
     render json: { data: { message: "Welcome #{current_user.name}",
                            user: current_user } },
-           status: :success
+           status: 200
   end
 
   def guest
