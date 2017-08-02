@@ -32,5 +32,10 @@ module App
 
     # default language
     config.i18n.default_locale = :es
+
+    # DeviseTokenAuth skips the :authenticate_user!
+    config.to_prepare do
+      DeviseTokenAuth::ApplicationController.skip_before_action :authenticate_user!
+    end
   end
 end
