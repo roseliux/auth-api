@@ -7,6 +7,7 @@ class AuthControllerTest < ActionDispatch::IntegrationTest
     @new_email = 'jondoe@mail.com'
     @password = 'secret123'
     @valid_header = { email: @email, password: @password }
+    @resource = users(:rox)
   end
 
   test 'should signin' do
@@ -28,6 +29,13 @@ class AuthControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'should destroy user' do
-
+    # update token, generate updated auth headers for response
+    auth_header = @resource.create_new_auth_token()
+    assert_difference('User.count', -1) do
+      delete user_registration_url, headers: auth_header, as: :json
+    end
+    payload = response_body
+    assert_equal 200, response.status
+    assert payload['message']
   end
 end
