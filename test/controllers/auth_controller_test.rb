@@ -30,7 +30,7 @@ class AuthControllerTest < ActionDispatch::IntegrationTest
 
   test 'should destroy user' do
     # update token, generate updated auth headers for response
-    auth_header = @resource.create_new_auth_token()
+    auth_header = @resource.create_new_auth_token
     assert_difference('User.count', -1) do
       delete user_registration_url, headers: auth_header, as: :json
     end
