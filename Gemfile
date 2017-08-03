@@ -38,6 +38,7 @@ group :development, :test do
   # for debug in rubymine
   gem 'ruby-debug-ide'
   gem 'debase'
+  gem 'rubocop'
 end
 
 group :development do
