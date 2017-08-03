@@ -16,5 +16,6 @@ User.create(
   confirmed_at:       timestamp,
   created_at:         timestamp,
   updated_at:         timestamp,
+  password: 'secret123',
   encrypted_password: User.new.send(:password_digest, 'secret123')
 )
