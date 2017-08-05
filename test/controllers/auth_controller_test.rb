@@ -55,4 +55,20 @@ class AuthControllerTest < ActionDispatch::IntegrationTest
          as: :json
     assert_equal 200, response.status
   end
+
+  test 'should update users password via put on /password' do
+    auth_header = @resource.create_new_auth_token
+    put  user_password_url, headers: auth_header,
+         params: { password: '12345678', password_confirmation: '12345678'},
+         as: :json
+    body = response_body
+    assert body['message']
+    assert_equal 200, response.status
+  end
+
+  test 'should invalidate the user authentication token' do
+    auth_header = @resource.create_new_auth_token
+    delete destroy_user_session_url, headers: auth_header
+    assert_equal 200, response.status
+  end
 end
