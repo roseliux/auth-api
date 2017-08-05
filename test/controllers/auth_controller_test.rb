@@ -38,4 +38,21 @@ class AuthControllerTest < ActionDispatch::IntegrationTest
     assert_equal 200, response.status
     assert payload['message']
   end
+
+  test 'should update users name' do
+    auth_header = @resource.create_new_auth_token
+    put  user_registration_url, headers: auth_header,
+         params: { name: 'rox'}, as: :json
+    data = response_body['data']
+    assert_equal 200, response.status
+    assert_equal 'rox', data['name']
+  end
+
+  test 'should update users password' do
+    auth_header = @resource.create_new_auth_token
+    put  user_registration_url, headers: auth_header,
+         params: { password: '12345678', password_confirmation: '12345678'},
+         as: :json
+    assert_equal 200, response.status
+  end
 end
