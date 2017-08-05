@@ -1,5 +1,5 @@
 class HomeController < ApplicationController
-  before_action :authenticate_user!, except: :guest
+  before_action :authenticate_user!, except: [:guest, :email_send]
 
   def index
     render json: { data: { message: "Welcome #{current_user.name}",
@@ -9,5 +9,10 @@ class HomeController < ApplicationController
 
   def guest
     render json: { message: I18n.t('common.welcome') }, status: 200
+  end
+
+  def email_send
+    render json: { message: I18n.t('devise.passwords.send_instructions') },
+           status: 200
   end
 end

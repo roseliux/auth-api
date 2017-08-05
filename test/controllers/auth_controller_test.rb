@@ -71,4 +71,14 @@ class AuthControllerTest < ActionDispatch::IntegrationTest
     delete destroy_user_session_url, headers: auth_header
     assert_equal 200, response.status
   end
+
+  test 'should send a password reset confirmation email' do
+    auth_header = @resource.create_new_auth_token
+    assert_difference 'ActionMailer::Base.deliveries.size', +1 do
+      post user_password_url, headers: auth_header,
+           params: { email: @email, redirect_url: email_send_url }
+    end
+    assert response_body['message']
+    assert_equal 200, response.status
+  end
 end
