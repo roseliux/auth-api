@@ -251,6 +251,11 @@ es:
             password:
               blank: 'en blanco.'
               too_short: "muy corta, debe tener al menos %{count} caracteres."
+            password_confirmation:
+              confirmation: 'no coincide.'
+            email:
+              blank: 'en blanco.'
+              taken: 'ya existe.'
   devise:
     confirmations:
       confirmed: "Tu correo electrónico ha sido confirmado exitosamente."
