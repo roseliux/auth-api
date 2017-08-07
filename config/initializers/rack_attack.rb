@@ -11,6 +11,11 @@ class Rack::Attack
 
   # Rack::Attack.cache.store = ActiveSupport::Cache::MemoryStore.new
 
+  # This code allows requests from the localhost.
+  safelist('allow from localhost') do |req|
+    '127.0.0.1' == req.ip || '::1' == req.ip
+  end
+
   ### Throttle Spammy Clients ###
 
   # If any single client IP is making tons of requests, then they're
