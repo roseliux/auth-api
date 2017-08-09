@@ -24,6 +24,8 @@ gem 'jbuilder', '~> 2.5'
 
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
 gem 'rack-cors', :require => 'rack/cors'
+# Rack::Attack is a rack middleware to protect your web app from bad clients.
+gem 'rack-attack'
 
 # Simple, secure token based authentication for Rails
 gem 'devise_token_auth'

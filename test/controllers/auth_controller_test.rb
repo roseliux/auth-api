@@ -38,4 +38,48 @@ class AuthControllerTest < ActionDispatch::IntegrationTest
     assert_equal 200, response.status
     assert payload['message']
   end
+
+  test 'should update users name' do
+    auth_header = @resource.create_new_auth_token
+    put  user_registration_url, headers: auth_header,
+         params: { name: 'rox'}, as: :json
+    data = response_body['data']
+    assert_equal 200, response.status
+    assert_equal 'rox', data['name']
+  end
+
+  test 'should update users password' do
+    auth_header = @resource.create_new_auth_token
+    put  user_registration_url, headers: auth_header,
+         params: { password: '12345678', password_confirmation: '12345678'},
+         as: :json
+    assert_equal 200, response.status
+  end
+
+  test 'should update users password via put on /password' do
+    auth_header = @resource.create_new_auth_token
+    put  user_password_url, headers: auth_header,
+         params: { password: '12345678', password_confirmation: '12345678'},
+         as: :json
+    body = response_body
+    assert body['message']
+    assert_equal 200, response.status
+  end
+
+  test 'should invalidate the user authentication token' do
+    auth_header = @resource.create_new_auth_token
+    delete destroy_user_session_url, headers: auth_header
+    assert_equal 200, response.status
+  end
+
+  test 'should send a password reset confirmation email' do
+    auth_header = @resource.create_new_auth_token
+    assert_difference 'ActionMailer::Base.deliveries.size', +1 do
+      post user_password_url, headers: auth_header,
+           params: { email: @email,
+                     redirect_url: "http://localhost:3000#{email_send_path}" }
+    end
+    assert response_body['message']
+    assert_equal 200, response.status
+  end
 end

@@ -24,4 +24,12 @@ class HomeControllerTest < ActionDispatch::IntegrationTest
     assert_equal I18n.t('common.welcome'), body['message']
   end
 
+  test 'should get email send' do
+    get email_send_url, as: :json
+    assert_response :success
+
+    body = response_body
+    assert_equal I18n.t('devise.passwords.send_instructions'), body['message']
+  end
+
 end
