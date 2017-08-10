@@ -1,5 +1,7 @@
 # README
 
+## [![Build Status](https://travis-ci.org/roseliux/auth-api.svg?branch=master)](https://travis-ci.org/roseliux/auth-api)
+
 ## For run the app
 ```
 docker-compose up
