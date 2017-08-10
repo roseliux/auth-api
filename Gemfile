@@ -41,6 +41,8 @@ group :development, :test do
   gem 'ruby-debug-ide'
   gem 'debase'
   gem 'rubocop'
+  # for secrets
+  gem 'figaro'
 end
 
 group :development do
