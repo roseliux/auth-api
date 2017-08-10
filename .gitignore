@@ -19,4 +19,4 @@
 .idea/*
 
 # ignore secrets
-config/secrets.yml
+config/application.yml
