@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   get 'home/index'
   get 'home/email_send', as: 'email_send'
+  get 'email_verification', to: 'home#email_verification', as: 'email_verification'
 
   root 'home#guest'
 

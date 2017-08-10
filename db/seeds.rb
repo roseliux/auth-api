@@ -5,6 +5,7 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+User.all.destroy_all
 timestamp = DateTime.parse(2.weeks.ago.to_s).to_time.strftime("%F %T")
 
 User.create(

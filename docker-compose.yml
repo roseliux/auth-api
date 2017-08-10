@@ -3,6 +3,12 @@ db:
   environment:
     - POSTGRES_PASSWORD=asdfasdf
 
+mailcatcher:
+    image: yappabe/mailcatcher
+    ports:
+        - 1025:1025
+        - 1080:1080
+
 web:
   build: .
   command: rails server -b 0.0.0.0
@@ -12,3 +18,4 @@ web:
     - '.:/usr/src/app'
   links:
     - db
+    - mailcatcher

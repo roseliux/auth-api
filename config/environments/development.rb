@@ -27,12 +27,12 @@ Rails.application.configure do
   end
 
   # disable email delivery in development mode
-  config.action_mailer.delivery_method = :test
-  config.action_mailer.perform_deliveries = false
-  config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+  config.action_mailer.default_url_options = { :host => 'mailcatcher' }
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = { :address => 'mailcatcher', :port => 1025 }
 
   # Don't care if the mailer can't send.
-  config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.raise_delivery_errors = true
 
   config.action_mailer.perform_caching = false
 
