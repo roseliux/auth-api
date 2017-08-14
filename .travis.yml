@@ -19,3 +19,7 @@ deploy:
   app: new-auth-api
   on:
     repo: roseliux/auth-api
+  run:
+    - "rake db:migrate"
+    - restart
+    - "rake cleanup"
