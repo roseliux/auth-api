@@ -11,6 +11,13 @@ class HomeControllerTest < ActionDispatch::IntegrationTest
     assert_response 200
   end
 
+  test 'should set language via Accept-Language header' do
+    get root_url, headers: { 'Accept-Language' => 'es'}, as: :json
+    assert_response :success
+    body = response_body
+    assert_equal I18n.t('common.welcome'), body['message']
+  end
+
   test 'should get 401 when get index' do
     get home_index_url
     assert_response 401
