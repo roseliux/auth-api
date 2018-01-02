@@ -1,15 +1,24 @@
 language: ruby
 rvm:
- - 2.2
+- 2.2
 env:
-  - DB=postgresql
+- DB=postgresql
 services:
-  - postgresql
+- postgresql
 script:
-  - RAILS_ENV=test bundle exec rake db:migrate --trace
-  - bundle exec rake db:test:prepare
-  - bundle exec rake
+- RAILS_ENV=test bundle exec rake db:migrate --trace
+- bundle exec rake db:test:prepare
+- bundle exec rake
 before_script:
-  - cp config/database.yml.travis config/database.yml
-  - psql -c 'create database travis_ci_test;' -U postgres
- 
+- cp config/database.yml.travis config/database.yml
+- psql -c 'create database travis_ci_test;' -U postgres
+deploy:
+  provider: heroku
+  api_key:
+    secure: wznQi7lXX8cMjTc+TOnArNFj44YAa5dZl/BZTqq07jMsLVG8HZVOIXW5xGUuff/+LkK0hnYtYLH5LhrVBszATjZYCMeqLhZtPTLsIkWrnAX1s1slp2yoMkB5YIY58pb6UzjQ/0C66W+SFgLtsJ/PfPTf/8Gt7WY57AP7cxyUgU+SvzjpqN8dy1v3mCO8GqFW+MGIlTV2/0ToWjL9+tq5N22vxGE4ko3++EElSEVPDC/X5CLpIRuXLc3H6VOOk1wEb7ecnsGxa/kmYqJyVuqmtYfwzltFu1bI00uY2oLmSUalG4EZQAGWr1NS74L4kY4So4Ae0u5TMAXY1Tiva3AAa1z3rPG/tUlEZTFLQagv70/hVOBtla0CU3gbWxuRZDEiPTMrVCVsFtDyeuWbwDbOhNmx+NUABvEgK/kspSAE6ISLalEc6VSB+TuvrCwjlFCpRhxXOztyEoJ8sj7abvXwiicLPFqTTd5XUUMtPn/mYrJJs6n3YCn62tlQXIE6SZ+ulPJnXgOXHp5uSVd79/UzPWdr1PR1VQv7xG7rLs3SPEik3A6lY/guh/21g2IUUaqvP+eymMryB6FZ7r1YKv76gqh50Q34gMzTp2Lx+7M9i5OG+xwIvdh8JNWwlmtt8hAUA55LUPPM1F/NI9ioU6ryVuYhW4KwF+lWF4TqS1jcYVo=
+  app: new-auth-api
+  on:
+    repo: roseliux/auth-api
+  run:
+    - "rake db:migrate"
+    - restart
