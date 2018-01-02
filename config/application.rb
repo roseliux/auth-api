@@ -27,6 +27,9 @@ module App
 
     # tell our application that we want to use rack-attack.
     config.middleware.use Rack::Attack
+    # Devise configs
+    config.middleware.use ActionDispatch::Cookies
+    config.middleware.use ActionDispatch::Session::CookieStore
 
     # Only loads a smaller set of middleware suitable for API only apps.
     # Middleware like session, flash, cookies can be added back manually.

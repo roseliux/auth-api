@@ -28,7 +28,7 @@ gem 'rack-cors', :require => 'rack/cors'
 gem 'rack-attack'
 
 # Simple, secure token based authentication for Rails
-gem 'devise_token_auth'
+gem 'devise_token_auth', '0.1.43.beta1'
 gem 'omniauth-facebook'
 gem 'omniauth-google-oauth2'
 
@@ -39,7 +39,7 @@ group :development, :test do
   gem 'faker'
   # for debug in rubymine
   gem 'ruby-debug-ide'
-  gem 'debase'
+  gem 'debase', '~> 0.1.8'
   gem 'rubocop'
   # for secrets
   gem 'figaro'

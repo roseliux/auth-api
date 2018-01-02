@@ -1,5 +1,5 @@
 class HomeController < ApplicationController
-  before_action :authenticate_user!, except: [:guest, :email_send, :email_verification]
+  before_action :authenticate_user!, only: :index
 
   def index
     render json: { data: { message: "Welcome #{current_user.name}",

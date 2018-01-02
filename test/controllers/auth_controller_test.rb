@@ -28,6 +28,17 @@ class AuthControllerTest < ActionDispatch::IntegrationTest
     assert_equal @name, payload['data']['name']
   end
 
+  test 'should invalid Email registration' do
+    post user_registration_url,
+         params: { email:  @resource.email,
+                   password: @password,
+                   password_confirmation: @password,
+                   name: @name }, as: :json
+    payload = response_body
+    assert_equal 422, response.status
+    # puts payload
+  end
+
   test 'should destroy user' do
     # update token, generate updated auth headers for response
     auth_header = @resource.create_new_auth_token
@@ -51,15 +62,18 @@ class AuthControllerTest < ActionDispatch::IntegrationTest
   test 'should update users password' do
     auth_header = @resource.create_new_auth_token
     put  user_registration_url, headers: auth_header,
-         params: { password: '12345678', password_confirmation: '12345678'},
+         params: { password: '12345678', password_confirmation: '12345678', current_password: 'secret123'},
          as: :json
     assert_equal 200, response.status
   end
 
   test 'should update users password via put on /password' do
+    # This route is only valid for users that registered by email
+    # (OAuth2 users will receive an error). It also checks current_password
     auth_header = @resource.create_new_auth_token
-    put  user_password_url, headers: auth_header,
-         params: { password: '12345678', password_confirmation: '12345678'},
+    puts user_password_path
+    put  user_password_path, headers: auth_header,
+         params: { password: '12345678', password_confirmation: '12345678', current_password: 'secret123'},
          as: :json
     body = response_body
     assert body['message']
