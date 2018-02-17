@@ -36,7 +36,8 @@ class AuthControllerTest < ActionDispatch::IntegrationTest
                    name: @name }, as: :json
     payload = response_body
     assert_equal 422, response.status
-    # puts payload
+    assert_equal 1, payload['errors']['email'].count
+    # puts payload['errors']['email'].count # watch for only one error
   end
 
   test 'should destroy user' do
@@ -71,7 +72,7 @@ class AuthControllerTest < ActionDispatch::IntegrationTest
     # This route is only valid for users that registered by email
     # (OAuth2 users will receive an error). It also checks current_password
     auth_header = @resource.create_new_auth_token
-    puts user_password_path
+    # puts user_password_path
     put  user_password_path, headers: auth_header,
          params: { password: '12345678', password_confirmation: '12345678', current_password: 'secret123'},
          as: :json
